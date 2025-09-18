@@ -157,6 +157,9 @@ footer {
 .text-secondary {
   color: var(--col-text-secondary);
 }
+.mb-025 {
+  margin-bottom: 0.25rem;
+}
 .mb-05 {
   margin-bottom: 0.5rem;
 }
@@ -165,4 +168,7 @@ footer {
 }
 .mt-1 {
   margin-top: 1rem;
+}
+.bb { // border bottom
+  border-bottom: 2px solid var(--col-text);
 }
