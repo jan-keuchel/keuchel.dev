@@ -1,5 +1,7 @@
 ---
 title: Theoretical Computer Science
+desc: Der beste Kurs des Grundstudiums!
+published: 17.07.2024
 ---
 # Theoretical Computer Science
 

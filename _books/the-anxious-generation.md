@@ -4,6 +4,8 @@ authors:
     - Yaron Brook
     - Don Watkins
 year: 2016
+desc:
+published: 01.08.2025
 ---
 # The Anxious Generation
 

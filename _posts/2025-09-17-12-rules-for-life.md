@@ -1,5 +1,7 @@
 ---
 title: 12 Rules for Life
+desc: This is the final description of the blogs....
+published: 17.09.2025
 ---
 # 12 Rules for Life
 

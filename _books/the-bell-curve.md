@@ -4,6 +4,8 @@ authors:
   - Richard J. Herrnstein
   - Charles Murray
 year: 1994
+desc: A controversial book about the cognitive distribution in the population.
+published: 21.10.2025
 ---
 # The Bell Curve
 

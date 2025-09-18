@@ -1,5 +1,7 @@
 ---
 title: How does this work
+desc: This is a description.
+published: 01.08.2025
 ---
 # How Does This Work?
 

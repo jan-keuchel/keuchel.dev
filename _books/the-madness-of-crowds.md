@@ -3,6 +3,8 @@ title: Equal is Unfair
 authors:
     - Douglass Murray
 year: 2020
+desc: We are going crazy!
+published: 08.08.2025
 ---
 # Overview of "The Madness of Crowds" by Douglas Murray
 

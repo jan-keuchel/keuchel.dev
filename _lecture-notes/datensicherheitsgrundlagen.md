@@ -1,5 +1,7 @@
 ---
 title: Datensicherheitsgrundlagen
+desc: Diesen Kurs habe ich mir nur ausgedacht...
+published: 12.09.2025
 ---
 # Data Privacy Fundamentals
 
