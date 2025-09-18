@@ -2,8 +2,6 @@
 title: Lecture Notes
 layout: default
 ---
-# Lecture Notes
-
 In here you will find my notes to some of the courses I took at HKA.
 
 <ul>

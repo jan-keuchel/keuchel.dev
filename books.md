@@ -2,7 +2,6 @@
 title: Books
 layout: default
 ---
-## Books
 <ul>
     {% for book in site.data.books %}
         <li>

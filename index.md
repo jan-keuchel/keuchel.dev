@@ -2,7 +2,6 @@
 title: jankeuchel.dev
 layout: default
 ---
-## Blog Posts
 <ul>
     {% assign postsByYear = site.posts | group_by_exp: "post", "post.date | date: '%Y'" %}
     {% for year in postsByYear %}
