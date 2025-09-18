@@ -1,19 +1,23 @@
-<ul>
+<ul class="item-list">
         {% for item in include.collection %}
         <li>
-                <article>
-                        <a href="{{ item.url }}">
+                <a href="{{ item.url }}" class="card mb-05">
+                        <article>
                                 <div>
-                                        <h3>{{ item.title }}</h3>
-                                        <div>
-                                                <p>{{ item.desc }}</p>
+                                        <h3 class="text-primary">{{ item.title }}</h3>
+                                        <div class="text-secondary mb-1">
+                                                <p>
+                                                {{ item.desc }}
+                                                </p>
                                         </div>
-                                        <div>
-                                                <time>{{ item.published }}</time>
+                                        <div class="text-secondary">
+                                                <time>
+                                                        {{ item.published }}
+                                                </time>
                                         </div>
                                 </div>
-                        </a>
-                </article>
+                        </article>
+                </a>
         </li>
         {% endfor %}
 </ul>

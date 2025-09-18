@@ -1,11 +1,17 @@
 :root {
   --col-text: #F3F7F0;
+  --col-text-secondary: color-mix(in srgb, var(--col-text) 70%, black);
   --col-accent: #F2545B;
   --col-background-header: #0C181D;
   --col-background-nav: color-mix(in srgb, var(--col-background-header) 95%, white);
   --col-background-content: color-mix(in srgb, var(--col-background-nav) 95%, white);
+  --col-border: color-mix(in srgb, var(--col-background-nav) 90%, white);
   --col-link: #999EFF;
 }
+
+// ------------------------------
+// ---------- Globals -----------
+// ------------------------------
 
 *,
 *::before,
@@ -27,6 +33,11 @@ body {
 
 main {
   flex: 1; // push footer to the bottom
+}
+
+
+ul {
+  list-style-type: none;
 }
 
 // -----------------------------
@@ -110,4 +121,45 @@ footer {
   padding: 2rem;
   line-height: 1.4;
   color: var(--col-text);
+}
+
+// -----------------------------
+// ---------- Listing ----------
+// -----------------------------
+
+.item-list {
+  text-decoration: none;
+}
+
+.card {
+  display: block;
+  padding: 1.5rem;
+  border-radius: 10px;
+  border: 1px solid var(--col-border);
+  background-color: var(--col-background-nav);
+  text-decoration: none;
+  color: inherit;
+}
+
+
+
+// -----------------------------
+// ---------- Modular ----------
+// -----------------------------
+
+.text-primary {
+  color: var(--col-text);
+  text-decoration: none;
+}
+.text-secondary {
+  color: var(--col-text-secondary);
+}
+.mb-05 {
+  margin-bottom: 0.5rem;
+}
+.mb-1 {
+  margin-bottom: 1rem;
+}
+.mt-1 {
+  margin-top: 1rem;
 }
