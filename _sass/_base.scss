@@ -3,8 +3,8 @@
   --col-accent: #F2545B;
   --col-background-header: #0C181D;
   --col-background-nav: color-mix(in srgb, var(--col-background-header) 90%, white);
+  --col-link: #999EFF;
 }
-
 
 *,
 *::before,
@@ -12,6 +12,19 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1; // push footer to the bottom
 }
 
 // -----------------------------
@@ -58,3 +71,23 @@ nav a:hover {
   text-decoration: none;
 }
 
+
+// ----------------------------
+// ---------- Footer ----------
+// ----------------------------
+
+footer {
+  text-align: center;
+  background-color: var(--col-background-nav);
+  padding: 1em;
+}
+
+.personal-links a {
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.obligaroty-links {
+  text-decoration: none;
+  color: var(--col-link);
+}
