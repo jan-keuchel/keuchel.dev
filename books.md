@@ -3,9 +3,9 @@ title: Books
 layout: default
 ---
 <ul>
-    {% for book in site.data.books %}
+    {% for book in site.books %}
         <li>
-            <a href="{{ book.link }}">{{ book.name }}</a>
+            <a href="{{ book.url }}">{{ book.title }}</a>
         </li>
     {% endfor %}
 </ul>
