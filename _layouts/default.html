@@ -21,7 +21,7 @@
     <body class="layout-{{ page.layout }}">
         {% include header.html %}
         {% include navigation.html %}
-        <main class="content">
+        <main class="content content-{{ page.layout }}">
             {{ content }}
         </main>
         {% include footer.html %}
