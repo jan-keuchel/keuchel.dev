@@ -172,3 +172,21 @@ footer {
 .bb { // border bottom
   border-bottom: 2px solid var(--col-text);
 }
+
+.metadata {
+  display: flex;
+  align-items: center;   /* vertically center items */
+  justify-content: space-between; /* push date left, logo right */
+  margin-top: 0.5rem;    /* spacing from previous content */
+  color: var(--col-text-secondary); /* use your existing text-secondary color */
+}
+
+.metadata-date {
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+.metadata-logo {
+  max-height: 1.5rem;
+  width: auto;
+}

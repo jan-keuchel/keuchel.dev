@@ -10,10 +10,11 @@
                                                 {{ item.desc }}
                                                 </p>
                                         </div>
-                                        <div class="text-secondary">
-                                                <time>
-                                                        {{ item.published }}
-                                                </time>
+                                        <div class="metadata">
+                                                <time class="metadata-date">{{ item.published }}</time>
+                                                {% if item.logo %}
+                                                        <img src="{{ item.logo }}" alt="logo" class="metadata-logo">
+                                                {% endif %}
                                         </div>
                                 </div>
                         </article>
