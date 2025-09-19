@@ -4,6 +4,7 @@ desc: Der beste Kurs des Grundstudiums!
 published: 17.07.2024
 logo: /assets/images/HKA.png
 source_url: https://www.h-ka.de/
+language: de
 ---
 # Theoretical Computer Science
 
