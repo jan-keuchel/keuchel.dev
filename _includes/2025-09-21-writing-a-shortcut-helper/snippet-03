@@ -1,0 +1,5 @@
+ bind= $mod, Return, exec, $terminal # Terminal
+bind= $mod , B, exec, $browser # Brave browser
+bind= $mod, M, exec, $mail # thundebird mail 
+bind= $mod, D, exec, $darktable # darktable
+bind= $mod, Z, exec, zotero #Zotero

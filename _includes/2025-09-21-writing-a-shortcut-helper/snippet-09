@@ -1,0 +1,9 @@
+$terminal:kitty
+$fileManager:nemo
+$menu:rofi -show drun
+$browser:brave --password-store:basic
+$gimp:gimp
+$virt_manager:virt-manager
+$mail:thunderbird
+$display_settings:nwg-displays
+$darktable:darktable
