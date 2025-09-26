@@ -15,18 +15,6 @@
   opacity: 0.8;
 }
 
-.content-post ul {
-  list-style: square;
-  list-style-position: outside;
-  margin-left: 1rem;
-}
-
-.content-post ol {
-  list-style-position: outside;
-  padding-left: 0;
-  margin-left: 2rem;
-}
-
 .content-post img {
   width: 100%;
   max-width: 100%;
@@ -35,3 +23,13 @@
   margin: 0 auto; /* Optional: centers images */
 }
 
+.content-post a {
+  color: var(--col-unlicked-link-accent);
+  text-decoration: none;
+  margin: 0px 0px;
+}
+
+.content-post a:hover {
+  color: var(--col-accent);
+  text-decoration: underline;
+}

@@ -1,0 +1,15 @@
+.content-lecture-notes h1 {
+  @extend .mb-1;
+}
+
+.content-lecture-notes h2 {
+  @extend .mb-05
+}
+
+.content-lecture-notes h3, h4, h5 {
+  @extend .mb-025
+}
+
+.content-lecture-notes p {
+  @extend .mb-025
+}

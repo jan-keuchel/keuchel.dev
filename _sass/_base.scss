@@ -40,9 +40,16 @@ main {
   flex: 1; // push footer to the bottom
 }
 
-
 ul {
-  list-style-type: none;
+  list-style: square;
+  list-style-position: outside;
+  margin-left: 1rem;
+}
+
+ol {
+  list-style-position: outside;
+  padding-left: 0;
+  margin-left: 2rem;
 }
 
 // -----------------------------
@@ -132,8 +139,10 @@ footer {
 // ---------- Listing ----------
 // -----------------------------
 
-.item-list {
-  text-decoration: none;
+.plain-list {
+  list-style-type: none;
+  margin: 0em;
+  padding: 0em;
 }
 
 .card {
