@@ -3,6 +3,9 @@ title: Writing a shortcut helper
 desc: This post shows my approach and steps to writing a shortcut helper in bash for hyprland using rofi.
 published: 21.09.2025
 ---
+
+[\<Jump to the full script\>](#full-script)
+
 ## What is a shortcut helper?
 A shortcut helper is an interface enabling you to search for the actions you wish to perform or problems you wish to resolve.
 It provides you with the shortcut you were looking for and the option of executing the specific command right away.
@@ -10,7 +13,7 @@ It provides you with the shortcut you were looking for and the option of executi
 ## Why bother creating a shortcut helper?
 If you're using a tiling window manager, you've probably configured a system that is tailored to your needs and solves sparcely encountered but tedious to resolve issues easily.
 This involves having some highly customized shortcuts for seldom encountered situations.
-Depending on how frequently you come across said situations, and, hence, use configured shortcuts, it can easily be forgotten.
+Depending on how frequently you come across said situations, and, hence, use configured shortcuts, they can easily be forgotten.
 This leaves you opening your configuration and searching for the shortcut in your editor, waisting precisely the time you wanted to save when you sat down and configured the shortcut in the first place.
 
 ## What was the aim for this specific shortcut helper?
@@ -61,6 +64,7 @@ The snippet used for demonstation purposes only is this:
 {% include 2025-09-21-writing-a-shortcut-helper/snippet-00 %}
 {% endhighlight %}
 
+{% comment %}{: .highlight-block .highlight-note}{% endcomment %}
 (I have deliberately messed up the indentation to demonstrate different issues that need to be addressed regarding whitespace)
 
 To elaborate, each line represents a shortcut specified as a four-tupel.
@@ -71,7 +75,7 @@ Think of them as different commands you can execute (You could execute a command
 Fourth are the arguments provided to the dispatcher.
 The words that have a dollar sign preceeding them are variables.
 
-I actually have another file just for the programs I use so that I can easily swap out a program from that one location.
+Actually, I have another file just for the programs I use so that I can easily swap them out in one location.
 Here's part of that file:
 
 {% highlight config linenos %}
@@ -91,7 +95,7 @@ Thus, we can reduce the entire configuration file down to solely the desired lin
 
 - Command:
 {% highlight bash linenos %}
-grep "bind= " bindings.conf
+grep "bind= " "$KEYBINDINGS_FILE"
 {% endhighlight %}
 - Output:
 {% highlight bash linenos %}
@@ -111,6 +115,11 @@ grep "bind= " bindings.conf | \
 {% highlight bash linenos %}
 {% include 2025-09-21-writing-a-shortcut-helper/snippet-03 %}
 {% endhighlight %}
+
+{: .highlight-block .highlight-hint}
+`-E` simply enables extended regular espressions, such that the expression `[[:space:]]` can be used to search for every occurence of whitespace (spaces, tabs, etc.). 
+Furthermore, multiple search-and-replace operations will be executed. Every single pattern is denoted by the preceeding `-e` flag.
+
 , then remove the `bind= ` prefix along with preceeding spaces from each line 
 - Command:
 {% highlight bash linenos %}
@@ -166,6 +175,9 @@ echo "$SHORTCUT_LIST" | awk -F ',' '{print $1" "$2"@:"$NF}'
 {% include 2025-09-21-writing-a-shortcut-helper/snippet-07 %}
 {% endhighlight %}
 
+{: .highlight-block .highlight-hint}
+The `$NF` simply means "the last column". `@` is simply used as another delimiter - it could be replaced by any other character.
+
 , formatted using `column` 
 
 - Command:
@@ -176,6 +188,9 @@ echo "$SHORTCUT_LIST" | awk -F ',' '{print $1" "$2"@:"$NF}' | column -s '@' -t
 {% highlight bash linenos %}
 {% include 2025-09-21-writing-a-shortcut-helper/snippet-08 %}
 {% endhighlight %}
+
+{: .highlight-block .highlight-hint}
+`-s`: seperator, `-t` table output.
 
 and thereupon displayed to the user - you - using rofi 
 - Command:
@@ -200,9 +215,12 @@ We now need to extract the command from our shortcut list by grepping for the se
 {% highlight bash linenos %}
 echo "$SHORTCUT_LIST" | sed 's/,/ /' | grep "$SELECTED" | awk -F ',' '{print $2" "$3}'
 {% endhighlight %}
-(Note: The search-and-replace executed with `sed` replaces the first occurence of a ',' with a ' '.
+
+{: .highlight-block .highlight-hint}
+The search-and-replace executed with `sed` replaces the first occurence of a comma with a space.
 This is done because we removed the comma before displaying the shorcut list in rofi - for aesthetic purposes.
-We can't grep for it unless we do the same alteration here again).
+We can't grep for it unless we do the same alteration here again.
+
 And finally, the command can be executed.
 {% highlight bash linenos %}
 if [[ $COMMAND == exec* ]]; then
@@ -227,7 +245,9 @@ This yields a translation list:
 - Command:
 {% highlight bash linenos %}
 PROGRAMMS_FILE="$HOME/.config/hypr/hyprland_programs.conf"
-grep '^\$' "$PROGRAMMS_FILE" | sed -e 's/[[:space:]]+/ /g' -e 's/ = /:/g'
+grep '^\$' "$PROGRAMMS_FILE" | \
+    sed -E  -e 's/[[:space:]]+/ /g' \
+            -e 's/ = /:/g'
 {% endhighlight %}
 - Output:
 {% highlight bash linenos %}
@@ -244,7 +264,7 @@ if [[ -n $(echo "$COMMAND" | grep -F "$") ]]; then
     COMMAND=$(echo "$COMMAND" | sed "s/$TO_REPLACE/$REPLACEMENT/")
 fi
 {% endhighlight %}
-. Here is the entire script I wrote:
+### Here is the entire script I wrote: {#full-script}
 
 {% highlight bash linenos %}
 {% include 2025-09-21-writing-a-shortcut-helper/snippet-10 %}
