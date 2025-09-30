@@ -41,6 +41,7 @@ def main():
 
     title = input("Title: ").strip()
     slug = slugify(title)
+    language = input("Language (en/de):")
 
     if item_type == "book":
         authors = prompt_authors()
@@ -54,6 +55,7 @@ def main():
         frontmatter += f"year: {year}\n"
         frontmatter += "desc: [description of the file]\n"
         frontmatter += "published: [Date of publishing]\n"
+        frontmatter += f"language: {language}\n"
         frontmatter += "---"
         create_file(file_path, frontmatter)
 
@@ -65,6 +67,7 @@ def main():
         frontmatter += "published: [Date of publishing]\n"
         frontmatter += "logo: /assets/images/[Logo-name.png]\n"
         frontmatter += "source_url: [https://source-of-the-lecture.com/lecture-page]\n"
+        frontmatter += f"language: {language}\n"
         frontmatter += "---"
         create_file(file_path, frontmatter)
 
@@ -75,6 +78,7 @@ def main():
         frontmatter += f"title: {title}\n"
         frontmatter += "desc: [description of the file]\n"
         frontmatter += "published: [Date of publishing]\n"
+        frontmatter += f"language: {language}\n"
         frontmatter += "---"
         create_file(file_path, frontmatter)
 
@@ -84,6 +88,7 @@ def main():
         frontmatter += f"title: {title}\n"
         frontmatter += "desc: [description of the file]\n"
         frontmatter += "published: [Date of publishing]\n"
+        frontmatter += f"language: {language}\n"
         frontmatter += "---"
         create_file(file_path, frontmatter)
 if __name__ == "__main__":
