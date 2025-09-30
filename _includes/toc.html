@@ -1,0 +1,29 @@
+<div id="toc" class="toc">
+    <h2 id="toc-list-heading">Table of Contents</h2>
+    <ul id="toc-list"></ul>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const tocList = document.getElementById('toc-list');
+        const headings = document.querySelectorAll('main.content-post h2:not([id=toc-list-heading]), main.content-post h3');
+        let tocHTML = '';
+
+        headings.forEach((heading, index) => {
+            // Generate an ID for the heading if it doesn't have one
+            if (!heading.id) {
+                heading.id = 'heading-' + index;
+            }
+
+            // Determine the heading level for nesting (h1=1, h2=2, h3=3)
+            const level = parseInt(heading.tagName.charAt(1));
+            const indentClass = 'toc-level-' + level;
+
+            // Build the TOC item
+            tocHTML += '<li class="' + indentClass + '"><a href="#' + heading.id + '">' + heading.textContent + '</a></li>';
+        });
+
+        // Insert the TOC into the page
+        tocList.innerHTML = tocHTML;
+    });
+</script>

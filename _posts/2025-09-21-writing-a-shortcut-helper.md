@@ -4,7 +4,6 @@ desc: This post shows my approach and steps to writing a shortcut helper in bash
 published: 21.09.2025
 ---
 
-[\<Jump to the full script\>](#full-script)
 
 ## What is a shortcut helper?
 A shortcut helper is an interface enabling you to search for the actions you wish to perform or problems you wish to resolve.
@@ -264,7 +263,8 @@ if [[ -n $(echo "$COMMAND" | grep -F "$") ]]; then
     COMMAND=$(echo "$COMMAND" | sed "s/$TO_REPLACE/$REPLACEMENT/")
 fi
 {% endhighlight %}
-### Here is the entire script I wrote: {#full-script}
+
+### The entire script
 
 {% highlight bash linenos %}
 {% include 2025-09-21-writing-a-shortcut-helper/snippet-10 %}

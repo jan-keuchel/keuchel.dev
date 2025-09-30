@@ -36,6 +36,7 @@ highlighter: rouge
 
 kramdown:
   syntax_highlighter: rouge
+  toc_levels: 2..3
 
 exclude:
   - scripts/
