@@ -63,15 +63,16 @@ p {
 header {
   text-align: center;
   background-color: var(--col-background-header);
-  padding: 2em;
+  padding: 1em;
 }
 
 // jankeuchel.dev heading
-header h1 a {
+#jankeuchel {
   color: var(--col-text);
+  font-size: 50px;
   text-decoration: none;
 }
-header h1 a:hover {
+#jankeuchel:hover {
   text-decoration: underline;
 }
 
