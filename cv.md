@@ -2,4 +2,6 @@
 title: CV
 layout: default
 ---
-Here will be the CV in the near future....
+<iframe src="{{ '/assets/cv.pdf' | relative_url }}" width="100%" height="1200px" style="border: none;">
+  <p>Your browser does not support PDFs. <a href="{{ '/assets/cv.pdf' | relative_url }}">Download the PDF</a>.</p>
+</iframe>
