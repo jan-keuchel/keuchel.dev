@@ -10,15 +10,16 @@ Work in progress.
 - [ ] Link cards
     - [x] Wallpaper for project cards
     - [x] Add Tag on cards for "Ongoing"
-    - [ ] Remove place holder articles
+    - [x] Remove place holder articles
 - [ ] Main pages
     - [ ] Write introduction on main pages
     - [ ] Update CV
     - [ ] 404 Page not found
 - [ ] Issues
     - [ ] Fix font issue in articles in ul listing
-- [ ] Add Github Link inside a project
+- [x] Add Github Link inside a project
 - [ ] Setup Email
 - [ ] Questions
-    - [ ] Is it possible to write entire page in tex instead of md?
+    - [x] Is it possible to write entire page in tex instead of md?
+        - Doesn't work
 - [ ] Write official pages

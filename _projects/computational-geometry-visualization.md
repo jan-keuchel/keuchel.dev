@@ -4,6 +4,7 @@ desc: Tool for the visualization of algorithms in computational geometry. Topics
 published: 05.11.2025
 language: en
 ongoing: true
+github: https://github.com/jan-keuchel/Computational-Geometry-Visualization
 ---
 {% comment %}wallpaper: /assets/images/project_wallpapers/computational-geometry-visualization.png{% endcomment %}
 
