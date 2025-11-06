@@ -3,6 +3,7 @@ title: Computational Geometry Visualization
 desc: Tool for the visualization of algorithms in computational geometry. Topics are convex hulls, line segment intersection, triangulation, range queries, voronoi diagrams.
 published: 05.11.2025
 language: en
+ongoing: true
 ---
 
 ## About this project 

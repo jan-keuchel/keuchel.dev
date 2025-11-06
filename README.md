@@ -9,7 +9,7 @@ Work in progress.
 ## Todo's:
 - [ ] Link cards
     - [ ] Wallpaper for project cards
-    - [ ] Add Tag on cards for "ongoing"
+    - [x] Add Tag on cards for "Ongoing"
     - [ ] Remove place holder articles
 - [ ] Main pages
     - [ ] Write introduction on main pages
