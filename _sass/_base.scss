@@ -54,27 +54,37 @@ html, body {
 body {
   display: flex;
   flex-direction: column;
+  color: var(--col-text);
 }
 
 main {
   flex: 1; // push footer to the bottom
 }
 
+p {
+  font-size: 1.2rem;
+  color: var(--col-text);
+  opacity: 1 !important;
+}
+
 ul {
   list-style: square;
   list-style-position: outside;
   margin-left: 1rem;
+  font-family: inherit;
+  font-size: 1.2rem;
+  color: var(--col-text);
 }
 
 ol {
   list-style-position: outside;
   padding-left: 0;
   margin-left: 2rem;
+  font-family: inherit;
+  font-size: 1.2rem;
+  color: var(--col-text);
 }
 
-p {
-  font-size: 1.2rem;
-}
 
 // -----------------------------
 // ---------- Header -----------

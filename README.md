@@ -12,11 +12,11 @@ Work in progress.
     - [x] Add Tag on cards for "Ongoing"
     - [x] Remove place holder articles
 - [ ] Main pages
-    - [ ] Write introduction on main pages
+    - [x] Write introduction on main pages
     - [ ] Update CV
     - [x] 404 Page not found
 - [ ] Issues
-    - [ ] Fix font issue in articles in ul listing
+    - [x] Fix font issue in articles in ul listing
 - [x] Add Github Link inside a project
 - [ ] Setup Email
 - [ ] Questions
