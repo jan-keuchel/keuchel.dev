@@ -10,12 +10,12 @@ I'm a Computer Science student currently living in Karlsruhe.
 {: .mb-1 }
 
 You somehow managed to land on my personal webpage.
-On here, I publish blogs and lecture notes, showcase projects, and share some interesting thoughts from books I've read.
-The different sections can be found via the navigation bar above.
+On here, I publish blogs and lecture notes, showcase projects, and share thoughts from books I've read.
 {: .mb-05 }
 
+The different sections can be found via the navigation bar above.
 Below are the blog posts sorted by year.
-The flags -- just as on the other pages -- denote the language the post is written in.
+The flags denote the language the post is written in.
 {: .mb-05 }
 
 <ul class="plain-list">
