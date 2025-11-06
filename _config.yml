@@ -1,3 +1,10 @@
+title: "keuchel.dev"
+description: "Personal Webpage of Jan Keuchel"
+url: "https://keuchel.dev"
+
+baseurl: ""
+
+
 collections:
   lecture-notes:
     output:
