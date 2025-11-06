@@ -8,7 +8,7 @@ Work in progress.
 
 ## Todo's:
 - [ ] Link cards
-    - [ ] Wallpaper for project cards
+    - [x] Wallpaper for project cards
     - [x] Add Tag on cards for "Ongoing"
     - [ ] Remove place holder articles
 - [ ] Main pages
@@ -16,7 +16,7 @@ Work in progress.
     - [ ] Update CV
     - [ ] 404 Page not found
 - [ ] Issues
-    - [ ] Fix font issue in articles in <ul> listing
+    - [ ] Fix font issue in articles in ul listing
 - [ ] Add Github Link inside a project
 - [ ] Setup Email
 - [ ] Questions

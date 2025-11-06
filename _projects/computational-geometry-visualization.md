@@ -5,6 +5,7 @@ published: 05.11.2025
 language: en
 ongoing: true
 ---
+{% comment %}wallpaper: /assets/images/project_wallpapers/computational-geometry-visualization.png{% endcomment %}
 
 ## About this project 
 In parallel to the -- sadly only 2 ECTS  -- lecture "Grafisch-geometrsiche Algorithmen", or, in english, "computational geometry" (Lecture notes can be found [here]({% link /assets/lecture_notes_pdf/cg.pdf %})), I am working through the accompanying book [Computational Geometry](https://link.springer.com/book/10.1007/978-3-540-77974-2) .

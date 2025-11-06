@@ -9,10 +9,33 @@
             {% assign link_target = nil %}
             {% assign is_pdf = false %}
         {% endif %}
+
+        {%- comment -%} Wallpaper defaults (can be overridden in front matter) {%- endcomment -%}
+        {% assign wp_scale    = item.wp_scale    | default: "4.0" %}
+        {% assign wp_rotate   = item.wp_rotate   | default: "-10" %}
+        {% assign wp_top      = item.wp_top      | default: "90%" %}
+        {% assign wp_right    = item.wp_right    | default: "25%" %}
+        {% assign wp_opacity  = item.wp_opacity  | default: "0.5" %}
+
+
         <li>
             <a href="{{ link_href }}" 
                 {% if link_target %}target="{{ link_target }}" {%  endif %}
-                class="card mb-05">
+                class="card mb-05 {% if item.wallpaper %} has-wallpaper{% endif %}"
+                {% if item.wallpaper %}
+                    style="
+                           --wp-url:     url('{{ item.wallpaper | relative_url }}');
+                           --wp-scale:   {{ wp_scale }};
+                           --wp-rotate:  {{ wp_rotate }}deg;
+                           --wp-top:     {{ wp_top }};
+                           --wp-right:   {{ wp_right }};
+                           --wp-opacity: {{ wp_opacity }};
+                           "
+                {% endif %}
+            >
+            {% if item.wallpaper %}
+                <div class="card-wallpaper" aria-hidden="true"></div>
+            {%  endif %}
                 <article>
                     <div class="heading-row">
                         <div class="heading-left">
