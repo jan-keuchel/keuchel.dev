@@ -1,5 +1,9 @@
 ---
 layout: default
 ---
+{% if page.pdf == nil %}
+    <h1>{{ page.title }}</h1>
+    <p>{{ page.published }}</p>
+{% endif %}
 {% include toc.html %}
 {{ content }}
