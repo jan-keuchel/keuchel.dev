@@ -84,11 +84,15 @@ def main():
 
     elif item_type == "project":
         file_path = os.path.join(PROJECTS_DIR, f"{slug}.md")
+        ongoing = input("ongoing (true/false): ").strip()
+        github = input("Github link: ").strip()
         frontmatter = "---\n"
         frontmatter += f"title: {title}\n"
         frontmatter += "desc: [description of the file]\n"
         frontmatter += "published: [Date of publishing]\n"
         frontmatter += f"language: {language}\n"
+        frontmatter += f"ongoing: {ongoing}\n"
+        frontmatter += f"github: {github}\n"
         frontmatter += "---"
         create_file(file_path, frontmatter)
 if __name__ == "__main__":
