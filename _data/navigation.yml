@@ -6,5 +6,5 @@
   link: /lecture-notes.html
 - name: Projects
   link: /projects.html
-- name: Reading
-  link: /books.html
+# - name: Reading
+  # link: /books.html
