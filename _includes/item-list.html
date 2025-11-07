@@ -50,12 +50,19 @@
                     </div>
                     <div class="card-metadata">
                         <div class="card-md-left">
-                            <time class="card-md-date">{{ item.published }}</time>
+                            {% if item.ongoing == true %}
+                                {% if item.language == "en" %}
+                                    <time class="card-md-date">last update: {{ item.published }}</time>
+                                {% elsif item.language == "de" %}
+                                    <time class="card-md-date">zuletzt aktualisiert: {{ item.published }}</time>
+                                {% endif %}
+                            {% else %}
+                                <time class="card-md-date">{{ item.published }}</time>
+                            {% endif %}
+
                             {% if item.language == "en" %}
-                                {% comment %}<time class="card-md-date">last update: {{ item.published }}</time>{% endcomment %}
                                 <img src="/assets/images/flag-usa.png" class="card-md-flag" alt="German">
                             {% elsif item.language == "de" %}
-                                {% comment %}<time class="card-md-date">aktualisiert: {{ item.published }}</time>{% endcomment %}
                                 <img src="/assets/images/flag-germany.png" class="card-md-flag" alt="German">
                             {% endif %}
                         </div>
