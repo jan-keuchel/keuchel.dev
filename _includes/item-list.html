@@ -1,5 +1,6 @@
 <ul class="plain-list font1 mt-1">
-    {% for item in include.collection %}
+    {% assign sorted_collection = include.collection | sort: "date" | reverse %}
+    {% for item in sorted_collection %}
         {% if item.pdf %}
             {% assign link_href = item.pdf %}
             {% assign link_target = "_blank" %}
