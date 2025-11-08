@@ -3,7 +3,7 @@ layout: default
 ---
 {% if page.pdf == nil %}
     <h1>{{ page.title }}</h1>
-    <p>{{ page.published }}</p>
+    {{ page.date | date: "%d.%m.%Y" }} <br>
 {% endif %}
 {% include toc.html %}
 {{ content }}
