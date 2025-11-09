@@ -11,9 +11,9 @@ Work in progress.
     - [x] Wallpaper for project cards
     - [x] Add Tag on cards for "Ongoing"
     - [x] Remove place holder articles
-- [ ] Main pages
+- [x] Main pages
     - [x] Write introduction on main pages
-    - [ ] Update CV
+    - [x] Update CV
     - [x] 404 Page not found
 - [x] Issues
     - [x] Fix font issue in articles in ul listing
