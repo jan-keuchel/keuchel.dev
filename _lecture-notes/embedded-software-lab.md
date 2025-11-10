@@ -203,21 +203,65 @@ Damit das Ergebnis weniger stark schwankt, wird ein Skript geschrieben, welches 
 
 Somit ergibt sich:
 {% highlight bash linenos %}
-C  : gen=2.572 ms, translate=0.143 ms, cp=56.900 ms,  total=59.614 ms
-C++: gen=3.396 ms, translate=0.411 ms, cp=126.806 ms, total=130.615 ms
+C  : gen=1.809 ms, translate=0.099 ms, cp=39.351 ms,  total=41.260 ms
+C++: gen=3.442 ms, translate=0.411 ms, cp=126.900 ms, total=130.754 ms
 {% endhighlight %}
 
 {: .highlight-block .highlight-important }
-In der Gesamtzeit ist `C` also um einen Faktor von **2.19** schneller als `C++`.
+In der Gesamtzeit ist `C` also um einen Faktor von **3.17** schneller als `C++`.
 
 ### Optimierung durch Compiler-Flags
 
+Für die Kompilierung der Programme wurden `gcc` und `g++` genutzt.
+Diese haben unterschiedliche Optimierungsstufen: `-O0, -O1, -O2` und `-O3`.
+Diese optimieren zunehmen auf Geschwindigkeit.
+
+Der Standardwert beider Compiler ist `-O0`.
+Bei den oben gelisteten Ergebnissen handelt es sich also um nicht optimierte Progreamme.
+
+Die Frage ist jetzt also: wie verhalten sich die Laufzeiten des `C`- bzw. `C++`-Progamms über die unterschiedlichen Optimierungsstufen hinweg.
+
+Da die benötigte Zeit von Durchlauf zu Durchlauf stark variieren kann, ist es besser, nicht eine Messung pro Programm pro Optimierungsstufe durchzuführen, sondern den Mittelwert mehrerer Ausführungen zu bilden.
+
 #### Skript zur automatisierung des Vergleichs
-Da es keinen Spaß macht, dies manuell zu tun -- bzw. es mehr Spaß macht, ein Skript zu schreiben, welches dieses automatisiert tut und die Ergebnisse plottet -- wird ein Python Skript geschrieben, welches einem die Arbeit abnimmt:
+Da es keinen Spaß macht dies manuell zu tun, wird ein Python Skript geschrieben, welches ...
+
+- beide Varianten des Programms (`C` und `C++`) in den unterschiedlichen Optimierungsstufen kompiliert
+- die Ausgaben bezüglich der Laufzeit der Programme speichert
+- die Mittelwerte berechnet
+- das Ergebnis plottet
+
+{: .text-small }
+**Das Skript:**
 
 {% highlight python linenos %}
 {% include lecture_data/embedded-software-lab/time_benchmark_script %}
 {% endhighlight %}
+
+#### Zwischenergebnisse
+
+Die Ausgabe des Skripts ist wie folgt:
+
+{% highlight python linenos %}
+{% include lecture_data/embedded-software-lab/comp_1 %}
+{% endhighlight %}
+
+Die jeweils ersten Zeilen sind bereits von vorher bekannt.
+Die Faktoren bezüglich der Gesamtzeiten für die Optimierungsstufen sind: 
+- `-O0:` **3.17**
+- `-O1:` **1.09**
+- `-O2:` **0.98**
+- `-O3:` **1.01**
+
+Der erstellte Plot:
+
+<div class="full-width-img img-theme-toggle">
+    <img src="{{ '/assets/images/decoder_timing_comp_1.png' | relative_url }}"
+         alt="Time comparison plot">
+</div>
+
+{: .highlight-block .highlight-important }
+**Fazit:** Ab der Optimierungsstufe `-O1` ist der Unterschied zwischen `C` und `C++` vernachlässigbar.
 
 ### Code Optimierung
 Die Operation, die am aufwendigsten ist, ist der Modulo-Operator (`%`) in der Schleife, welche das Korrelationsprodukt berechnet.
