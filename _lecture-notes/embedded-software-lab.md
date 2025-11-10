@@ -264,48 +264,34 @@ Der erstellte Plot:
 **Fazit:** Ab der Optimierungsstufe `-O1` ist der Unterschied zwischen `C` und `C++` vernachlässigbar.
 
 ### Code Optimierung
-Die Operation, die am aufwendigsten ist, ist der Modulo-Operator (`%`) in der Schleife, welche das Korrelationsprodukt berechnet.
-Es gilt also, diesen Operator wenn möglich zu eliminieren.
-In diesem Fall dient er dazu, dass der Index, wenn dieser am Ende des Arrays ankommt, wieder an den Anfang gesetzt wird, sodass kein `IndexOutOfBounds` auftritt.
+Die Gesamtzeit ist -- wie zu erwarten war -- fast ausschließlich durch die Berechnung der Korrelationsprodukte bestimmt.
+Folglich wird sich in der Code-Optimierung nur auf diesen Abschnitt bezogen.
 
-Dies kann auch anders erreicht werden:
-Anstatt ein Array der Länge $n$ zu haben, welches von einem Offset $\delta$ aus traversiert wird -- und somit jeden Iterationsschritt sichergestellt werden muss, dass man nicht "aus der Begrenzung" läuft --, kann man das Array zu Beginn an sich selbst anhängen und somit auf einem Array der Länge $2n$ operieren.
-Somit ist es bei einer Schleife, welche $n$ Iterationen durchläuft und einem Offset, welcher maximal $n$ ist, nicht möglich "out of bounds" zu geraten.
+Betrachtet man die Schleife, stellt man fest, dass diejenige Zeile, die den größten Einfluss auf die Laufzeit hat, die folgende ist (`C` Version, Zeile 14):
 
-Somit ergibt sich die folgende Schleife:
 {% highlight c linenos %}
-{% include lecture_data/embedded-software-lab/c_optimized_cp %}
+cp += input[j] * chip_sequences[i][(j+d) % SEQ_LEN];
 {% endhighlight %}
 
-{: .highlight-block .highlight-hint}
-Da der Offset $\delta$ nun nicht mehr in die Chipsequenz, sondern in den Input gegeben wird, muss bei der Berechnung von `delta` in den Zeilen 19 bzw. 22 nicht einfach $\delta$ abgespeichert werden, sondern `SEQ_LEN - d`
+Innerhalb dieser Zeile ist der Modulo-Operator maßgeblich am Aufwand beteiligt.
+Es gilt also, diesen möglichst zu eliminieren.
 
-Gleiches wird im `C++` code vorgenommen.
+Der Sinn des Modulo-Operators ist, dass man das erneute Senden der gleichen Bits realisiert -- also die Chip-Sequenz wieder von vorne durchläuft.
+Verschiebt man nicht mehr die Chip-Sequenzen um ein $\delta$, sondern das Summensignal, kann man den Modulo-Operator überflüssig machen, indem man die Eingabe erneut an sich selbst anhängt.
 
-Die Verbesserung in der Berechnungszeit ist enttäuschend gering bzw. aussagekräftig:
+Bisher wurden die Chips der Chipsequenzen folgendermaßen miteinander verknüpft:
 
-**`C`:**
-{% highlight bash linenos %}
-./c_decoder input
-Generation of sequence numbers took: 2780 microseconds.
-Translation of sequence numbers took: 159 microseconds.
-cp calculation took: 46917 microseconds.
-Total: 49856 microseconds.
-{% endhighlight %}
+<div class="full-width-img img-theme-toggle">
+    {% include lecture_data/embedded-software-lab/offset_mod_tex %}
+</div>
 
-**`C++`:**
-{% highlight bash linenos %}
-./p_decoder input
-Generation of sequence numbers took: 5391 microseconds.
-Translation of sequence numbers took: 660 microseconds.
-cp calculation took: 187002 microseconds.
-Total: 193054 microseconds.
-{% endhighlight %}
+{: .highlight-block .highlight-note}
+Hier ist ein Summensignal $\mathcal{S}$ und eine um $\delta$ rotierte Chipsequenz $c_i$ der Länge $20$.
+Die Beschriftungen der Form $\mathcal{S}[j]$ und $c_i[k]$ zeigen an, wo sich die jeweiligen Werte befinden, damit man sieht, wie sich die Rotation um $\delta$ auswirkt.
+
+
+
 
 ### Optimierung durch Compiler-Flags II
-Beim Compilieren der Programme kann eine Optimierung verwendet werden.
-Diese reicht von `-O0` (default Wert) bis `-O3`.
-
-Es werden nun also beide Programme mit allen Optimierungsleveln compiliert und die Zeitwerte verglichen.
 
 ### Ergebnis
