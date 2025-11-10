@@ -1,5 +1,5 @@
 $mod, Return, exec, $terminal # Terminal
 $mod , B, exec, $browser # Brave browser
-$mod, M, exec, $mail # thundebird mail 
+$mod, M, exec, $mail # thunderbird mail 
 $mod, D, exec, $darktable # darktable
 $mod, Z, exec, zotero #Zotero

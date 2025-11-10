@@ -1,7 +1,7 @@
 $terminal:kitty
 $fileManager:nemo
 $menu:rofi -show drun
-$browser:brave --password-store:basic
+$browser:brave
 $gimp:gimp
 $virt_manager:virt-manager
 $mail:thunderbird

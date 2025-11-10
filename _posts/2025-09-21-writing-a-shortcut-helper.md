@@ -17,7 +17,7 @@ Depending on how frequently you come across said situations, and, hence, use con
 This leaves you opening your configuration and searching for the shortcut in your editor, waisting precisely the time you wanted to save when you sat down and configured the shortcut in the first place.
 
 ## What was the aim for this specific shortcut helper?
-I wanted to devise a simple looking and searchable shortcut helper using bash and rofi.
+I wanted to devise a simple looking and searchable shortcut helper using `bash` and `rofi`.
 A few questions arose: I don't want to display every single shortcut defined in the configureation file, so, do I create an additional file with all the shortcuts I want to search through or do I somehow filter out specified shortcuts?
 How do I add searchable tags and descriptions to the respective shortcuts?
 How do I display the list of shortcuts and descriptions in a table-like manner?
@@ -26,7 +26,7 @@ And finally: upon selection, how do I execute the command?
 
 ## Here are my answers to above questions:
 To avoid inconsistency issues due to multiple files, the shortcuts and corresponding descriptions will be extracted from the configuration file.
-In order to filter out only specific shortcuts, the corresponding lines need to be altered in some way (e.g. the declaration of the bindings will be modified from `bind = [...]` to `bind= [...]` - No space in front of the equal sign).
+In order to filter out only specific shortcuts, the respective lines need to be altered in some way (e.g. the declaration of the bindings will be modified from `bind = [...]` to `bind= [...]` -- No space in front of the equal sign).
 To easily pair up shortcuts and their descriptions, each line - and therefore shortcut - ends with a comment, that being, the shortcut's description.
 Finally, what should be displayed in the rofi selection menu are the shortcuts on the left hand side, and, formatted nicely in a column, the descriptions on the right hand side.
 
@@ -34,7 +34,7 @@ Finally, what should be displayed in the rofi selection menu are the shortcuts o
 
 The script is written in bash, as it is available on virtually every system and hence won't lead to any dependency issues.
 I was aware of a few command line tools such as `grep`, `sed` and `awk` but haven't used the latter two in quite some time.
-After doing some reading on these tools - and writing the script - here is what's necessary in order to understand it - and potentially write your own version:
+After doing some reading on these tools -- and writing the script -- here is what's necessary in order to understand it -- and potentially write your own version:
 
 - `grep` allows you to filter text input based on a provided pattern.
 It can thus be used to easily select the desired lines of shortcut definitions from the configuration file, because said lines have been transformed previously.
@@ -55,7 +55,7 @@ In short, it takes some text input and formats it into a table-like output.
 ## The Format of configuration files
 
 I use Hyprland.
-Consequently my keybindings may be defined in a different way than in your case.
+Consequently my keybindings may be defined differently than yours.
 As long as you have access to a human readable text file, this post is of use to you as you can simple adjust the script in accordance with your syntax.
 To better visualize and demonstrate what is happening along the way, I'm going to use part of my config file, as well as command output based on that snippet.
 The snippet used for demonstation purposes only is this:
@@ -64,14 +64,14 @@ The snippet used for demonstation purposes only is this:
 {% include post_data/2025-09-21-writing-a-shortcut-helper/snippet-00 %}
 {% endhighlight %}
 
-{% comment %}{: .highlight-block .highlight-note}{% endcomment %}
-(I have deliberately messed up the indentation to demonstrate different issues that need to be addressed regarding whitespace)
+{: .highlight-block .highlight-note}
+I have deliberately messed up the indentation to demonstrate different issues that need to be addressed regarding whitespace.
 
 To elaborate, each line represents a shortcut specified as a four-tupel.
 The first item are so called mod-keys such as ALT, WIN, CTRL.
 Second are normal keys.
 Third are the dispatchers.
-Think of them as different commands you can execute (You could execute a command line argument, move some window to a workpace or send a signal to a specific window).
+Think of them as different commands you can execute (You could execute a command line argument, move some window to a workpace or send some other signal to a specific window).
 Fourth are the arguments provided to the dispatcher.
 The words that have a dollar sign preceeding them are variables.
 
@@ -119,6 +119,7 @@ grep "bind= " bindings.conf | \
 {: .highlight-block .highlight-hint}
 `-E` simply enables extended regular espressions, such that the expression `[[:space:]]` can be used to search for every occurence of whitespace (spaces, tabs, etc.). 
 Furthermore, multiple search-and-replace operations will be executed. Every single pattern is denoted by the preceeding `-e` flag.
+The Backslashes `\` are there to be able to write the command across multiple lines.
 
 , then remove the `bind= ` prefix along with preceeding spaces from each line 
 - Command:
@@ -146,7 +147,7 @@ grep "bind= " bindings.conf | \
 {% include post_data/2025-09-21-writing-a-shortcut-helper/snippet-05 %}
 {% endhighlight %}
 
-or around the hash (#) at the starting point of the comment 
+or around the hash symbol `#` at the starting point of the comment 
 
 - Command:
 {% highlight bash linenos %}
@@ -162,8 +163,8 @@ grep "bind= " bindings.conf | \
 {% endhighlight %}
 
 .
-The result is that every lines words are separated either by a singular space or comma.
-This shortcut list will make further string manipulation manageable.
+The result -- which should be store in a variable, here `SHORTCUT_LIST` -- is that every lines words are separated either by a singular space or comma.
+This will make further string manipulation manageable.
 Then, using `awk`, shortcuts and descriptions will be filtered out 
 
 - Command:
@@ -176,7 +177,7 @@ echo "$SHORTCUT_LIST" | awk -F ',' '{print $1" "$2"@:"$NF}'
 {% endhighlight %}
 
 {: .highlight-block .highlight-hint}
-The `$NF` simply means "the last column". `@` is simply used as another delimiter - it could be replaced by any other character.
+The `$NF` simply means "the last column". `@` is used as another delimiter - it could be replaced by any other character.
 
 , formatted using `column` 
 
@@ -192,7 +193,8 @@ echo "$SHORTCUT_LIST" | awk -F ',' '{print $1" "$2"@:"$NF}' | column -s '@' -t
 {: .highlight-block .highlight-hint}
 `-s`: seperator, `-t` table output.
 
-and thereupon displayed to the user - you - using rofi 
+stored in the variable `TABLE` and thereupon displayed to the user - you - using rofi.
+Your selection will be store in the variable `SELECTED`:
 - Command:
 {% highlight bash linenos %}
 SELECTED=$(echo "$TABLE" | rofi -i -dmenu -p "")
@@ -213,7 +215,10 @@ $mod Return
 . Now that we have the selection, we actually can't execute the corresponding command as all we have is the shortcut, not the command.
 We now need to extract the command from our shortcut list by grepping for the selected shortcut in the bindings list and thereafter selecting specific columns from that line using `awk` 
 {% highlight bash linenos %}
-echo "$SHORTCUT_LIST" | sed 's/,/ /' | grep "$SELECTED" | awk -F ',' '{print $2" "$3}'
+echo "$SHORTCUT_LIST" | \ 
+    sed 's/,/ /' | \
+    grep "$SELECTED" | \
+    awk -F ',' '{print $2" "$3}'
 {% endhighlight %}
 
 {: .highlight-block .highlight-hint}
@@ -289,5 +294,4 @@ Here's the approach I've taken in designing this script in short:
 - Go into the file that holds the data you need to parse somehow and devise some format you can write your config file in, such that it is still comfortable to use but holds all the necessary information in one line.
 - Step by step, use string manipulation tools to further and further get to the desired output.
 - Display the output somehow and let the user - you - select one of the items.
-- Translate the variables.
-- In case you're aware of some better way of doing this, let me know.
+- Translate the variables. In case you're aware of some better way of doing this, let me know.

@@ -13,8 +13,6 @@ SHORTCUT_LIST=$(grep "bind=" "$KEYBINDINGS_FILE" | \
 			-e 's/, /,/g' \
 			-e 's/ *# */,/g')
 
-echo "$SHORTCUT_LIST"
-
 # TABLE is the formatted output for rofi
 TABLE=$(echo "$SHORTCUT_LIST" | awk -F ',' '{print $1" "$2"@:"$NF}' | column -s '@' -t)
 SELECTED=$(echo "$TABLE" | rofi -i -dmenu -p "")
