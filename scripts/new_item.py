@@ -58,7 +58,7 @@ def main():
         frontmatter += f"date: {today}\n"
         frontmatter += f"language: {language}\n"
         frontmatter += "ongoing: true\n"
-        frontmatter += "published: false"
+        frontmatter += "published: false\n"
         frontmatter += "---"
         create_file(file_path, frontmatter)
 
@@ -72,7 +72,7 @@ def main():
         frontmatter += "source_url: [https://source-of-the-lecture.com/lecture-page]\n"
         frontmatter += f"language: {language}\n"
         frontmatter += "ongoing: true\n"
-        frontmatter += "published: false"
+        frontmatter += "published: false\n"
         frontmatter += "---"
         create_file(file_path, frontmatter)
 
@@ -84,23 +84,21 @@ def main():
         frontmatter += f"date: {today}\n"
         frontmatter += f"language: {language}\n"
         frontmatter += "ongoing: true\n"
-        frontmatter += "published: false"
+        frontmatter += "published: false\n"
         frontmatter += "---"
         create_file(file_path, frontmatter)
 
     elif item_type == "project":
         file_path = os.path.join(PROJECTS_DIR, f"{slug}.md")
-        ongoing = input("ongoing (true/false): ").strip()
         github = input("Github link: ").strip()
         frontmatter = "---\n"
         frontmatter += f"title: {title}\n"
         frontmatter += "desc: [description of the file]\n"
         frontmatter += f"date: {today}\n"
         frontmatter += f"language: {language}\n"
-        frontmatter += f"ongoing: {ongoing}\n"
         frontmatter += f"github: {github}\n"
         frontmatter += "ongoing: true\n"
-        frontmatter += "published: false"
+        frontmatter += "published: false\n"
         frontmatter += "---"
         create_file(file_path, frontmatter)
 if __name__ == "__main__":
