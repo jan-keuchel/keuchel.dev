@@ -480,11 +480,22 @@ footer {
   font-size: 1rem;
 }
 
-.full-width-img svg,
-.full-width-img img {
+.img-100 svg,
+.img-100 img {
   width: 100%;
   height: auto;
   margin: 1em 0em;
+}
+
+.img-80 {
+  display: flex;
+  justify-content: center;
+  margin: 1em 0em;
+}
+.img-80 svg,
+.img-80 img {
+  width: 80%;
+  height: auto;
 }
 .px24-svg svg {
   width: 24px;

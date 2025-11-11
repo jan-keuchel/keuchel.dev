@@ -277,7 +277,7 @@ fi
 {% include post_data/2025-09-21-writing-a-shortcut-helper/snippet-10 %}
 {% endhighlight %}
 
-<div class="full-width-img">
+<div class="img-100">
     <img src="{{ '/assets/images/shortcut_helper_showcase.gif' | relative_url }}"
          alt="Time comparison plot">
 </div>
