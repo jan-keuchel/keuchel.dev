@@ -1,5 +1,9 @@
 <div id="toc-table">
-    <h2 class="no-toc">Contents</h2>
+    {%  if page.language == "en" %}
+        <h2 class="no-toc">Contents</h2>
+    {%  elsif page.language == "de" %}
+        <h2 class="no-toc">Inhalt</h2>
+    {% endif %}
     <ul id="toc-list"></ul>
 </div>
 
