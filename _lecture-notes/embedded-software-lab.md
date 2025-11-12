@@ -4,7 +4,7 @@ desc: Durchlauf des Labors des Moduls "Embedded Software"
 date: 2025-11-12
 logo: /assets/images/HKA.png
 language: de
-ongoing: true
+ongoing: false
 ---
 
 ## Kontext
