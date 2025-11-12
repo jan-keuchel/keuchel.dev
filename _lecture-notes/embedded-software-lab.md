@@ -278,6 +278,11 @@ Anstelle dessen wird das Korrelationsprodukt nun wie folgt gebildet:
     {% include lecture_data/embedded-software-lab/offset_2S_tex %}
 </div>
 
+{: .highlight-block .highlight-note }
+Das Summensignal $\mathcal{S}$ wurde an sich selbst angehängt.
+Die Verknüpfung von $c_i$ und $\mathcal{S}$ findet jetzt erst ab einem Offset $\delta$ statt.
+Das Wichtige: Verknüpft werden immer noch $c_i[0]$ bis $c_i[6]$ mit $\mathcal{S}[3]$ bis $\mathcal{S}[9]$ und $c_i[7]$ bis $c_i[9]$ mit $\mathcal{S}[0]$ bis $\mathcal{S}[3]$.
+
 #### Optimierte Implementierung
 Hier die optimierte Schleife in `C++`:
 
