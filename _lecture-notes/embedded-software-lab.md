@@ -328,10 +328,10 @@ Bei `C++` sieht es wie folgt aus:
 </div>
 
 {: .highlight-block .highlight-important }
-**Fazit:** Die Code-Optimierung ohne Compiler-Optimierung bringt also bei `C++` eine Verbesserung um $15\%$ und bei `C` um $40\%$.
+**Fazit:** Die Code-Optimierung ohne Compiler-Optimierung bringt also bei `C++` eine Verbesserung um $13\%$ und bei `C` um $30\%$.
 Dies ist bereits substantiell.
 Interessant ist allerdings, dass die Verbeserung erst richtig zu tragen kommt, wenn dazu noch eine Compiler-Optimierung verwendet wird.
-Hierdurch erreicht man bei `C++` Verbesserungen um bis zu $600\%$ und bei `C` $590\%$.
+Hierdurch erreicht man bei `C++` Verbesserungen von bis zu $82\%$ und bei `C` bis zu $83\%$.
 
 ## Anhang
 
