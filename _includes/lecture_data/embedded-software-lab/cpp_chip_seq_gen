@@ -6,13 +6,14 @@ std::bitset<SEQ_LEN> generate_chip_seq(std::array<int, 2> reg_sum) {
     a_reg_state.set();
     b_reg_state.set();
 
+    // Chip sequence
     std::bitset<SEQ_LEN> code;
 
     bool a_new_lmb;
     bool b_new_lmb;
     bool code_bit;
     for (int i = 0; i < SEQ_LEN; i++) {
-        // Update string
+        // Update chip sequence
         code_bit =  a_reg_state[0] ^ 
                     b_reg_state[10 - reg_sum[0]] ^ 
                     b_reg_state[10 - reg_sum[1]];

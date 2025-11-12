@@ -1,7 +1,7 @@
 ---
 title: Embedded Software Labor
 desc: Durchlauf des Labors des Moduls "Embedded Software"
-date: 2025-11-07
+date: 2025-11-12
 logo: /assets/images/HKA.png
 language: de
 ongoing: true
@@ -9,7 +9,11 @@ ongoing: true
 
 ## Kontext
 
-Die Aufgabe ist, einen Decoder für ein Summensignal von GPS-Daten zu schreiben. Es gibt $24$ Satelliten. Hiervon senden $4$ Satelliten jeweils ein Bit, welches als $1023$ Chips kodiert ist. Aus diesen Daten ergibt sich ein Summensignal. 
+Die Aufgabe ist, einen Decoder für ein Summensignal von GPS-Daten zu schreiben.
+Das Summensignal ist eine Folge aus $1023$ Zahlen.
+Es gibt $24$ Satelliten.
+Hiervon senden $4$ Satelliten jeweils ein Bit, welches als $1023$ Chips kodiert ist.
+Die Satelliten senden ihre Daten asynchron.
 
 Aus dem gegebenen Summensignal soll nun zurückgerechnet werden, welche $4$ Satelliten, welche Bits gesendet haben. 
 
@@ -19,39 +23,39 @@ Aus dem gegebenen Summensignal soll nun zurückgerechnet werden, welche $4$ Sate
 
 ### Aufbau des Summensignals
 
+Eine Chipsequenz ist eine Folge aus $1023$ Bits, welche im folgenden "Chips" genannt werden, um zwischen Datenbits und Chips unterscheiden zu können.
+Die Nullen einer Chipsequenz werden im folgenden als `-1` interpretiert.
 Zu zwei Chipsequenzen $c_i, c_j$ und einem Shift $\delta$ ist das Korrelationsprodukt $\mathcal{CP}$ definiert als:
 
 $$
     \mathcal{CP}_{ij}(\delta) := c_i \cdot (c_j \ll \delta)
 $$
 
-. Hierbei werden $c_i,c_j$ als Vektoren betrachtetist, $\cdot$ ist das Skalarprodukt und $\ll$ ist die Linksrotation.
+. Hierbei werden $c_i,c_j$ als Vektoren betrachtetist, $\cdot$ ist das Skalarprodukt und $c_i \ll \delta$ ist die Linksrotation con $c_i$ um den Wert $\delta$.
 Normanisiert man $\mathcal{CP}$, so erhält man einen Wert $\rho \in \[-1, 1\]$: den Korrelationskoeffizienten.
 
-Durch die Generierung haben die Chipsequenzen die Eigenschaft, dass diese in der Autokorrelation -- also dem Korrelationsprodukt mit $i=j$ und $\delta = 0$ -- den Wert $n = \vert c \vert $ liefern und für ein $\delta \ne 0$ einen Wert $\epsilon \approx 0$.
-Im Kreuzkorrelationsprodukt -- also dem Korrelationsprodukt mit $i \ne j$ und $\delta$ beliebig -- ergibt sich der Wert $\epsilon \approx 0$.
+Chipsequenzen sind sogenannte "[Goldfolgen](https://en.wikipedia.org/wiki/Gold_code)", welche bestimmte Eigenschaften aufweisen:
+- In der Autokorrelation -- also dem Korrelationsprodukt mit $i=j$ und $\delta = 0$ -- ergeben diese den Wert $n = \vert c \vert $ und für ein $\delta \ne 0$ einen Wert $\epsilon \approx 0$.
+- Im Kreuzkorrelationsprodukt -- also dem Korrelationsprodukt mit $i \ne j$ und $\delta$ beliebig -- ergibt sich der Wert $\epsilon \approx 0$.
 
-Will ein Satellit $S_i$ den Wert $b=1$ senden, so sendet er seine Chipsequenz $c_i$.
-Will $S_i$ den Wert $b=0$ senden, so sendet er das inverse von $c_i$ (Nullen und Einsen geflippt).
+Will ein Satellit $S_i$ das Bit $b=1$ senden, so sendet er seine Chipsequenz $c_i$.
+Will $S_i$ $b=0$ senden, so sendet er das Inverse seiner Chipsequenz: $\overline{c_i}$ (Nullen und Einsen geflippt).
 
-Das Summensignal entsteht dadurch, dass mehrere Satelliten parallel und verschoben zueinander (asynchron) Bits -- also ihre Chipsequenzen -- senden.
-Es ist also die Summe mehrerer, verschobener Chipsequenzen:
+Das Summensignal entsteht dadurch, dass mehrere Satelliten gleichzeitig und verschoben zueinander (asynchron) Bits -- also $c_i$ oder $\overline{c_i}$ -- senden und die gleichzeitig empfangenen Chips aufsummiert werden.
+Es ist also die Summe mehrerer, verschobener Chipsequenzen -- oder invertierter Chipsequenzen:
 
-<div class="img-100 img-theme-toggle">
+<div class="img-100 img-theme-toggle" id="sumsignal_tex">
     {% include lecture_data/embedded-software-lab/sumsignal_tex %}
 </div>
 
-Im Labor wird die Annahme gemacht, dass jeder der Satelliten sein gesendetes Datenbit $b \in \\{0,1\\}$ periodisch sendet.
-
-Um die fehlenden Flächen mit Chips auszufüllen, fängt man also bei den Daten des jeweiligen Satelliten wieder an, von vorne zu lesen -- der Satellit sendet das gleiche Signal erneut.
+Im Labor wird die Annahme gemacht, dass jeder der Satelliten sein gesendetes Datenbit $b \in \\{0,1\\}$ periodisch sendet. In <a href="#sumsignal_tex">Abbildung 1</a> wüsste man also, wie man die fehlenden Chips im roten Bereich auszufüllen hätte: man fängt einfach wieder an, die jeweilige Chipsequenz von vorn zu lesen.
 
 {: .highlight-block .highlight-hint }
-Alternativ kann man sich im obigem Bild auch so vorstellen, dass die Daten der Satelliten $S_1$ bis $S_4$ jeweils an sich selbst angehängt werden, sodass der rote Bereich vollständig mit Chips ausgefüllt ist.
-Dann bildet man Spaltenweise die Summe und erhält das Summensignal $\mathcal{S}$.
+Alternativ kann man sich auch vorstellen, dass die Daten der Satelliten $S_1$ bis $S_4$ jeweils an sich selbst angehängt werden, wodurch der rote Bereich vollständig mit Chips ausgefüllt wird.
 
 ### Dekodierung
 
-Wie funktioniert also die Dekodierung?
+Wie kann man also aus dem Summensignal wieder zurückrechnen, welche der Satelliten welce Bits gesendet haben?
 
 Bildet man das Korrelationsprodukt aus dem Summensignal $\mathcal{S}$ und der Chipsequenz $c_i$ eines Satelliten $S_i$ bei einer Verschiebung um $\delta$, so können folgende Szenarien auftreten:
 
@@ -63,8 +67,8 @@ Also $c_i \cdot \mathcal{S} \approx 0$.
 
 - $S_i$ hat Daten mit einer Verschiebung um $\hat \delta = \delta$ gesendet.
 In diesem Fall tritt eines der folgenden Szenarien auf:
-    - $S_i$ hat das Bit $b=1$ -- und somit $c_i$ -- gesendet: $c_i \cdot \mathcal{S} \approx c_i \cdot c_i = \vert c_i \vert$
-    - $S_i$ hat das Bit $b=0$ -- und somit $\overline{c_i}$ -- gesendet: $c_i \cdot \mathcal{S} \approx c_i \cdot (-c_i) = - \vert c_i \vert$
+    - $S_i$ hat das Bit $b=1$ und somit $c_i$ gesendet: $c_i \cdot \mathcal{S} \approx c_i \cdot c_i = \vert c_i \vert$
+    - $S_i$ hat das Bit $b=0$ und somit $\overline{c_i}$ gesendet: $c_i \cdot \mathcal{S} \approx c_i \cdot (-c_i) = - \vert c_i \vert$
 
 Um herauszufinden, welche Satelliten welche Bits gesendet haben muss man also pro Satellit $S_i$ und für jede Verschiebung $\delta$, $\mathcal{CP}_{i\mathcal{S}}(\delta)$ bilden und prüfen, ob ein Ausschlag in der Stärke des Korrelationsproduktes vorliegt.
 Falls ein solcher Ausschlag vorliegt, hat der Satellit entweder ein Eins-Bit (positiver Ausschlag) oder ein Null-Bit (negativer Ausschlag) gesendet.
@@ -102,16 +106,17 @@ Die generierte Chipsequenz für den Satelliten $1$ sieht zum Beispiel so aus:
 
 #### Berechnung der gesendeten Bits
 Für jeden Satellit -- somit für jede Chipsequenz -- wird also für jedes Offset das Korrelationsprodukt berechnet.
-Wird ein "Ausschlag" gefunden, kann dieser ausgegeben werden:
+Wird ein "Ausschlag" gefunden -- in diesem Fall ein Korrelationsprodukt, welches vom Betrag her größer als `800` ist -- , kann der Satellit mit entsprechender Verschiebung $\delta$ und gesendetem Bit ausgegeben werden:
 
 {% highlight cpp linenos %}
 {% include lecture_data/embedded-software-lab/cpp_cp %}
 {% endhighlight %}
 
 {: .highlight-block .highlight-hint}
-Dass die satelliten das gleiche Signal hintereinander senden wurde dadurch realisiert, dass in Zeile `19` ein Modulo-Operator (`%`) verwendet wurde, um die Daten wieder von vorne zu durchlaufen.
+Dass die Satelliten immer wieder das gleiche Signal senden wurde dadurch realisiert, dass in Zeile `19` ein Modulo-Operator (`%`) verwendet wurde. 
+Somit werden die Daten, wenn man am Ende ankommt, wieder von vorne durchlaufen.
 
-Somit entsteht z.B. die folgende Ausgabe: 
+Es entsteht z.B. die folgende Ausgabe: 
 
 {% highlight cpp linenos %}
 Satellite  8 has sent bit 1 (delta = 84)
@@ -124,15 +129,14 @@ Satellite 21 has sent bit 1 (delta = 126)
 
 ## C
 Das Programm in `C` zu übersetzen ist nicht sonderlich kompliziert.
-Es fallen ausschließlich einige Datenstrukturen weg.
-Diese können aber leicht durch normale Arrays (pointer) ersetzt werden.
+Es fallen ausschließlich einige Datenstrukturen weg, welche leicht durch normale Arrays (Pointer) ersetzt werden können.
 
 ### Generierung der Chipsequenzen
 
 Die Funktion zur Generierung von Chipsequenzen ändert sich nicht stark ab.
 Anstelle der `std::bitset` Objekte werden nun `int` Arrays genutzt.
-Eine Änderung ist, dass somit keine Bitoperationen -- und somit das Rechtsschieben -- mehr möglich sind.
-Somit wird ebenfalls die Funktion `sr` (shift right) benötigt:
+Eine Änderung ist, dass somit keine Bitoperationen -- also das Rechtsschieben -- mehr möglich sind.
+Es wird also ebenfalls die Funktion `sr` (*shift right*) benötigt:
 
 {% highlight c linenos %}
 {% include lecture_data/embedded-software-lab/c_sr %}
@@ -148,7 +152,7 @@ Die Funktion `generate_chip_sequence` sieht also wie folgt aus:
 {: .highlight-block .highlight-hint}
 Bitte nicht vergessen, den in Zeile `4` allokierten Speichers später wieder zu deallokieren...
 
-Die Schleifen für den Aufruf von `generate_chip_sequence`, sowie die Übersetzung in Vektoren über `-1, 1` ändern sich nicht bemerkenswert ab und werden hier nicht zusätzlich erwähnt.
+Die Schleifen für den Aufruf von `generate_chip_sequence`, sowie die Übersetzung in Vektoren über `-1, 1` ändern sich nicht erwähnenswert ab und werden hier nicht zusätzlich aufgeführt.
 
 ### Berechnung der gesendeten Bits
 
@@ -160,7 +164,7 @@ Hier die Schleife:
 {% endhighlight %}
 
 {: .highlight-block .highlight-hint}
-Dass die satelliten das gleiche Signal hintereinander senden wurde hier erneut dadurch realisiert, dass in Zeile `13` ein Modulo-Operator (`%`) verwendet wurde, um die Daten wieder von vorne zu durchlaufen.
+Dass die Satelliten immer wieder das gleiche Signal senden wurde auch hier dadurch realisiert, dass in Zeile `13` ein Modulo-Operator (`%`) verwendet wurde. Somit werden die Daten, wenn man am Ende ankommt, wieder von vorne durchlaufen.
 
 Die Ausgabe ist glücklicherweise identisch:
 
@@ -176,52 +180,53 @@ Satellite 21 has sent bit 1 (delta = 126)
 ## Vergleich
 Nun werden die beiden Programme bezüglich des Zeitaufwandes verglichen.
 Die Chipgenerierung und Übersetzung sind nicht von Interesse.
-Was relevant ist, ist die Berechnung der Korrelationsprodukte.
-Folglich wird die Zeit für diese Berechnung ermittelnt.
+Was betrachtet wird, ist die Berechnung der Korrelationsprodukte.
 
 ### Zeitmessung
-Im Falle von `C++` gibt `std::chrono::high_resolution_clock::now()` einen Zeitstemptel zurück.
-Dieser kann an den entsprechenden Stellen eingefügt werden.
-Nach dem Durchlauf der Berechnungen können die entsprechenden Differenzen gebildet werden:
+In `C++` gibt `std::chrono::high_resolution_clock::now()` einen Zeitstemptel zurück.
+Vor und nach der Berechnung der Korrelationsprodukte wird also ein Zeitstemptel abgespeichert.
+Dann kann die entsprechende Differenz gebildet werden:
 {% highlight cpp linenos %}
 auto gen_duration = std::chrono::duration_cast<std::chrono::microseconds>(start_translation - start_generation);
 {% endhighlight %}
 
 In `C` kann man mit `clock()` einen Zeitstempel erhalten. 
-Die Zeitstempel müssen also entsprechenden abgespeichert und später die Differenz gebildet werden.
-Für die Ausgabe muss man die Einheit noch umrechnen:
+Es wird analog vorgegangen.
+Für die Ausgabe muss man die Einheit umrechnen:
 
 {% highlight c linenos %}
 cpu_time_used = ((double) (start_translation - start_generation)) / CLOCKS_PER_SEC;
 printf("Generation of sequence numbers took: %d microseconds.\n", (int) (cpu_time_used * 1000000));
 {% endhighlight %}
 
-{: .highlight-block .highlight-note}
-Damit das Ergebnis weniger stark schwankt, werden die Programme mehrfach -- in diesem Fall `100` Mal -- ausführt und der Mittelwert gebildet.
+Nun kann man die Programme beliebig oft ausführen und die Zeitdaten messen.
 
 <div class="highlight-block highlight-important" markdown="1">
 Die mittlere Ausführungszeit für die Berechnung der Korrelationsprodukte beträgt:
 - **`C`:**  $\overline t = 61.692 ms$
 - **`C++`:**  $\overline t = 184.398 ms$
 
-Die `C`-Implementierung ist damit um einen Faktor von **2.989** schneller als `C++`-Version.
+Die `C`-Implementierung ist damit um einen Faktor von **2.989** schneller als die `C++`-Version.
 </div>
 
+{: .highlight-block .highlight-note}
+Damit das Ergebnis weniger stark schwankt, werden die Programme mehrfach -- in diesem Fall `100` Mal -- ausführt und der Mittelwert gebildet.
+Dies gilt auch für die Zeiten, die nachfolgend genannt werden.
 
 ### Optimierung durch Compiler-Flags
 
 Für die Kompilierung der Programme wurden `gcc` und `g++` genutzt.
-Diese haben unterschiedliche Optimierungsstufen: `-O0, -O1, -O2` und `-O3`.
-Diese optimieren zunehmen auf Geschwindigkeit.
+Die Compiler haben unterschiedliche Optimierungsstufen: `-O0, -O1, -O2` und `-O3`.
+Diese optimieren zunehmend auf Geschwindigkeit.
 
-Der Standardwert beider Compiler ist `-O0`.
-Bei den oben gelisteten Ergebnissen handelt es sich also um nicht optimierte Progreamme.
+Der Standardwert beider Compiler für die Optimierungsstufen ist `-O0`.
+Bei den oben gelisteten Laufzeiten handelt es sich also um nicht optimierte Programme.
 
-Die Frage ist jetzt also: wie verhalten sich die Laufzeiten des `C`- bzw. `C++`-Progamms über die unterschiedlichen Optimierungsstufen hinweg.
+Es stellt sich die Frage: wie verhalten sich die Laufzeiten des `C`- bzw. `C++`-Progamms über die unterschiedlichen Optimierungsstufen hinweg.
 
 #### Zwischenergebnisse
 
-Dazu werden beide Programme in den genannten Optimierungsstufen kompiliert, und deren Zeiten in einer Datei notiert.
+Dazu werden beide Programme in den genannten Optimierungsstufen kompiliert und deren Zeiten in einer Datei notiert.
 
 <div class="img-80 img-theme-toggle">
     {% include lecture_data/embedded-software-lab/interm_res_tex %}
@@ -232,39 +237,34 @@ Dazu werden beide Programme in den genannten Optimierungsstufen kompiliert, und 
 
 ### Code Optimierung
 #### Kurze Theorie
-Die Gesamtzeit ist -- wie zu erwarten war -- fast ausschließlich durch die Berechnung der Korrelationsprodukte bestimmt.
-Folglich wird sich in der Code-Optimierung nur auf diesen Abschnitt bezogen.
-
-Betrachtet man die Schleife, stellt man fest, dass diejenige Zeile, die den größten Einfluss auf die Laufzeit hat, die folgende ist (`C` Version, Zeile 14):
+Betrachtet man die Schleife, stellt man fest, dass diejenige Zeile, die den größten Einfluss auf die Laufzeit hat, die folgende ist (`C`-Version, Zeile `13`):
 
 {% highlight c linenos %}
 cp += input[j] * chip_sequences[i][(j+d) % SEQ_LEN];
 {% endhighlight %}
 
-Innerhalb dieser Zeile ist der Modulo-Operator maßgeblich am Aufwand beteiligt.
+Was diese Zeile so aufwendig macht, ist der Modulo-Operator.
 Es gilt also, diesen möglichst zu eliminieren.
 
 Der Sinn des Modulo-Operators ist, dass man das erneute Senden der gleichen Bits realisiert -- also die Chip-Sequenz wieder von vorne durchläuft.
-Verschiebt man nicht mehr die Chip-Sequenzen um ein $\delta$, sondern das Summensignal, kann man den Modulo-Operator überflüssig machen, indem man die Eingabe erneut an sich selbst anhängt.
 
-Bisher wurden die Chips der Chipsequenzen folgendermaßen miteinander verknüpft:
+Dies kann auch anders realisiert werden:
+Anstatt die Chip-Sequenzen um ein $\delta$ zu rotieren, kann man das Summensignal erneut an sich selbst anhängen und dann erst ab einem Offset $\delta$ das Korrelationsprodukt bilden.
+
+Bisher wurden die Chipsequenzen und das Summensignal folgendermaßen miteinander verknüpft:
 
 <div class="img-100 img-theme-toggle">
     {% include lecture_data/embedded-software-lab/offset_mod_tex %}
 </div>
 
-{: .highlight-block .highlight-note}
-Hier ist ein Summensignal $\mathcal{S}$ und eine um $\delta$ rotierte Chipsequenz $c_i$ der Länge $10$.
-Die Beschriftungen der Form $\mathcal{S}[j]$ und $c_i[k]$ zeigen an, wo sich die jeweiligen Werte befinden, damit man sieht, wie sich die Rotation um $\delta$ auswirkt.
-
-Anstelle dessen werden sie nun, um den Modulo-Operator zu eliminieren wie folgt miteinander verknüpft:
+Anstelle dessen wird das Korrelationsprodukt nun wie folgt gebildet:
 
 <div class="img-100 img-theme-toggle">
     {% include lecture_data/embedded-software-lab/offset_2S_tex %}
 </div>
 
-{: .highlight-block .highlight-note}
-Achtet man auf die Indeices, die miteinander verknüpft werden, so stellt man fest, dass beide Varianten die gleichen Indices verknüpfen und somit das gleiche berechnen.
+{: .highlight-block .highlight-warning }
+**TODO:** Fix weird font issues on SVG...
 
 #### Optimierte Implementierung
 Hier die optimierte Schleife in `C++`:
@@ -291,28 +291,39 @@ Die Änderungen sind analog zu denjenigen in `C++`.
     {% include lecture_data/embedded-software-lab/results_table_opt_tex %}
 </div>
 
+{: .highlight-block .highlight-warning }
+**TODO:** Fix weird font issues. $o$ in fraction is large...
+
 {: .highlight-block .highlight-important }
 **Fazit:** Die Ergebnisse unterscheiden sich im Verhältlnis nicht sonderlich von denjenigen ohne Code-Optimierung: `C` ist deutlich schneller als `C++`, solange man keine Compiler Optimierung nutzt.
 Sobald diese genutzt wird, sind `C` und `C++` quasi gleich schnell.
 
-Um welchen Faktor haben siche die Programme durch die Code-Optimierung bei den jeweiligen Compiler Optimierungsstufen verbessert?
+Eine Frage gibt es noch:
+Um welchen Faktor haben sich die Programme durch die Code-Optimierung bei den jeweiligen Optimierungsstufen verbessert?
 
-Im Falle von `C` hat sich folgendes egeben:
+Im Falle von `C` hat sich folgendes ergeben:
 
 <div class="img-80 img-theme-toggle">
     {% include lecture_data/embedded-software-lab/results_C_improv_tex %}
 </div>
 
-Bei `C++` sah es wie folgt aus:
+{: .highlight-block .highlight-warning }
+**TODO:** Fix weird font issues. $o$ in fraction is large...
+
+Bei `C++` sieht es wie folgt aus:
 
 <div class="img-80 img-theme-toggle">
     {% include lecture_data/embedded-software-lab/results_Cpp_improv_tex %}
 </div>
 
+{: .highlight-block .highlight-warning }
+**TODO:** Fix weird font issues. $o$ in fraction is large...
+
 {: .highlight-block .highlight-important }
-**Fazit:** Die Code-Optimierung bringt also bei `C++` eine Verbesserung um $15\%$ und bei `C` um $40\%$.
+**Fazit:** Die Code-Optimierung ohne Compiler-Optimierung bringt also bei `C++` eine Verbesserung um $15\%$ und bei `C` um $40\%$.
 Dies ist bereits substantiell.
-Interessant ist allerdings, dass die Verbeserung erst richtig zu tragen kommt, wenn dazu noch eine Compiler-Optimierung verwendet wird. Hierdurch Werden bei `C++` verbesserungen um $600\%$ und bei `C` $590\%$, also knapp darunter erzielt.
+Interessant ist allerdings, dass die Verbeserung erst richtig zu tragen kommt, wenn dazu noch eine Compiler-Optimierung verwendet wird.
+Hierdurch erreicht man bei `C++` Verbesserungen um bis zu $600\%$ und bei `C` $590\%$.
 
 ## Anhang
 
