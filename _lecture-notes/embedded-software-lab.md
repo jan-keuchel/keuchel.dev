@@ -107,10 +107,6 @@ Die generierte Chipsequenz für den Satelliten $1$ sieht zum Beispiel so aus:
 {% endhighlight %}
 
 ### Dekodierung
-
-
-{: .no-toc }
-#### Berechnung der gesendeten Bits
 Für jeden Satellit -- somit für jede Chipsequenz -- wird also für jedes Offset das Korrelationsprodukt berechnet.
 Wird ein "Ausschlag" gefunden -- in diesem Fall ein Korrelationsprodukt, welches vom Betrag her größer als `800` ist -- , kann der Satellit mit entsprechender Verschiebung $\delta$ und gesendetem Bit ausgegeben werden:
 
@@ -160,7 +156,7 @@ Bitte nicht vergessen, den in Zeile `4` allokierten Speichers später wieder zu 
 
 Die Schleifen für den Aufruf von `generate_chip_sequence`, sowie die Übersetzung in Vektoren über `-1, 1` ändern sich nicht erwähnenswert ab und werden hier nicht zusätzlich aufgeführt.
 
-### Berechnung der gesendeten Bits
+### Dekodierung
 
 Auch an der Berechnung der Kreuzkorrelationsprodukte ergeben sich nicht viele Änderungen.
 Hier die Schleife:
@@ -306,7 +302,7 @@ Und hier die optimierte Schleife in `C`:
 
 Die Änderungen sind analog zu denjenigen in `C++`.
 
-### Optimierung durch Compiler-Flags II: Ergebnisse
+### Optimierung durch Compiler-Flags II
 
 <div class="img-80 img-theme-toggle">
     {% include lecture_data/embedded-software-lab/results_table_opt_tex %}
@@ -316,8 +312,8 @@ Die Änderungen sind analog zu denjenigen in `C++`.
 **Fazit:** Die Ergebnisse unterscheiden sich im Verhältlnis nicht sonderlich von denjenigen ohne Code-Optimierung: `C` ist deutlich schneller als `C++`, solange man keine Compiler Optimierung nutzt.
 Sobald diese genutzt wird, sind `C` und `C++` quasi gleich schnell.
 
-Eine Frage gibt es noch:
-Um welchen Faktor haben sich die Programme durch die Code-Optimierung bei den jeweiligen Optimierungsstufen verbessert?
+### Verbesserungen durch Code-Optimierung
+Um welchen Faktor haben sich also die Programme durch die Code-Optimierung bei den jeweiligen Optimierungsstufen verbessert?
 
 Im Falle von `C` hat sich folgendes ergeben:
 
