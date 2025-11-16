@@ -45,6 +45,14 @@ upload() {
         exit 1
     fi
 
+    # Check
+    echo -n "Are you sure you want to upload to VPS? (y/n): "
+    read -r answer
+    if [[ ! "$answer" =~ ^[Yy]$ ]]; then
+        echo "Upload aborted."
+        return 1
+    fi
+
     echo "Uploading site to VPS..."
 
     # Check for localhost references first
