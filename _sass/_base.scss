@@ -419,6 +419,14 @@ footer {
   border-left: 6px solid color-mix(in srgb, var(--col-background-content) 60%, var(--col-highlight-important));
 }
 
+
+// -----------------------------
+// ------------ CODE ------------
+// -----------------------------
+.language-plaintext {
+  overflow-wrap: anywhere;
+}
+
 // -----------------------------
 // ------------ TOC ------------
 // -----------------------------
