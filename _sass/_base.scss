@@ -2,14 +2,13 @@
   /* DARK as default theme */
   --col-text:                 #F3F7F0;
   --col-text-secondary:         color-mix(in srgb, var(--col-text) 70%, black);
-  --col-accent:               #F2545B;
-  --col-unlicked-link-accent: #F2545B;
-  // --col-unlicked-link-accent: #f68d92;
+  --col-accent:               #5C64FF;
+  --col-unlicked-link-accent: #5C64FF;
   --col-background-header:    #0C181D;
   --col-background-nav:         color-mix(in srgb, var(--col-background-header) 95%, white);
   --col-background-content:     color-mix(in srgb, var(--col-background-nav) 95%, white);
   --col-border:                 color-mix(in srgb, var(--col-background-nav) 92%, white);
-  --col-link:                 #999EFF;
+  --col-link:                 #5C64FF;
 
   --pgp-bg:                   #2a3740;
 
@@ -30,16 +29,15 @@
 
 /* LIGHT overrides – only the ones that differ */
 [data-theme="light"] {
-  --col-text:               #3A343A;
+  --col-text:                 #3A343A;
   --col-text-secondary:       color-mix(in srgb, var(--col-text) 85%, white);
-  --col-accent:               #E03E45;
-  --col-unlicked-link-accent: #E03E45;
-  // --col-unlicked-link-accent: #f28d91;
-  --col-background-header:  #D8DADC;
+  --col-accent:               #5C64FF;
+  --col-unlicked-link-accent: #5C64FF;
+  --col-background-header:    #D8DADC;
   --col-background-nav:       color-mix(in srgb, var(--col-background-header) 38%, white);
   --col-background-content:   color-mix(in srgb, var(--col-background-nav) 38%, white);
   --col-border:               color-mix(in srgb, var(--col-background-nav) 95%, black);
-  --col-link:               #3B82F6;
+  --col-link:                 #5C64FF;
 
   --pgp-bg:                 #EEEEEE;
     
@@ -424,6 +422,12 @@ footer {
 // -----------------------------
 // ------------ TOC ------------
 // -----------------------------
+#toc-table {
+  background-color: var(--col-background-nav);
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+}
 
 // -----------------------------
 // ---------- Modular ----------
