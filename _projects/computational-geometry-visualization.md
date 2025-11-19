@@ -21,7 +21,7 @@ The first problem encountered deals with calculating the convex hull of a given 
 As it is better to have a suboptimal algorithm than none at all, the first approach is -- as so often -- to try and brute force the solution.
 The algorithm checks for every possible directed edge, whether every other point is to the left of it.
 If so, the edge is added to a list of convex hull edges $E$.
-Later on, the convex hull $\mathcal{CH}(P)$ -- which is an ordered list of vertices in counter-clockwise direction -- extracted from $E$.
+Later on, the convex hull $\mathcal{CH}(P)$ -- which is an ordered list of vertices in counter-clockwise direction -- is extracted from $E$.
 
 This is really slow and takes $$\mathcal{O}(n^3)$$ time.
 <video controls="" preload="none">
