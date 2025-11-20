@@ -2,14 +2,14 @@
 title: Privacy Policy
 layout: default
 ---
-<h2>Datenschutzerklärung</h2>
+<h2>Privacy Policy</h2>
 
 <p class="text-small">
-Diese Webseite erhebt <b>keine personenbezogenen Daten</b>.
-Es werden <b>keine Cookies, Tracker oder Formulare</b> verwendet.<br>
-Der Server (Hetzner, Deutschland) speichert anonymisierte Logfiles für max. 7 Tage.<br>
+This website collects <b>no personal data</b>.
+<b>No cookies, trackers, or forms</b> are used.<br>
+The server (Hetzner, Germany) stores anonymized log files for a maximum of 7 days.<br>
 </p>
 
 <p class="text-small mt-1">
-Fragen? <a href="/contact.html">Schreib mir hier</a>.
+Questions? <a href="/contact.html">Contact me here</a>.
 </p>
