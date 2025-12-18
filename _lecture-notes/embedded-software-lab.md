@@ -31,8 +31,8 @@ $$
     \mathcal{CP}_{ij}(\delta) := c_i \cdot (c_j \ll \delta)
 $$
 
-. Hierbei werden $c_i,c_j$ als Vektoren betrachtetist, $\cdot$ ist das Skalarprodukt und $c_i \ll \delta$ ist die Linksrotation con $c_i$ um den Wert $\delta$.
-Normanisiert man $\mathcal{CP}$, so erhält man einen Wert $\rho \in \[-1, 1\]$: den Korrelationskoeffizienten.
+. Hierbei werden $c_i,c_j$ als Vektoren betrachtet, $\cdot$ ist das Skalarprodukt und $c_i \ll \delta$ ist die Linksrotation von $c_i$ um den Wert $\delta$.
+Normalisiert man $\mathcal{CP}$, so erhält man einen Wert $\rho \in \[-1, 1\]$: den Korrelationskoeffizienten.
 
 Chipsequenzen sind sogenannte "[Goldfolgen](https://en.wikipedia.org/wiki/Gold_code)", welche bestimmte Eigenschaften aufweisen:
 - In der Autokorrelation -- also dem Korrelationsprodukt mit $i=j$ und $\delta = 0$ -- ergeben diese den Wert $n = \vert c \vert $ und für ein $\delta \ne 0$ einen Wert $\epsilon \approx 0$.
