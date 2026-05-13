@@ -19,11 +19,11 @@ V+8vKAD/a9EWntHObmYmabkm6gh25Ylpgi9WPAXVtcyEH+eDYAQ=
 -----END PGP PUBLIC KEY BLOCK-----
 </pre>
 
-Download my public PGP key: <a href="/pgp/keucheldev.asc" download>keucheldev.asc</a>
-
-**Fingerprint:** `5089 A126 7368 56F7 A019 A0EE 18D3 12BB 5FA8 5A8C`
+Download my public PGP key as `.asc` file: <a href="/pgp/keucheldev.asc" download>keucheldev.asc</a>
 
 Alternatively, download it from:
 [keys.openpgp.org](https://keys.openpgp.org/search?q=jan%40keuchel.dev)
+
+**Fingerprint:** `5089 A126 7368 56F7 A019 A0EE 18D3 12BB 5FA8 5A8C`
 
 **Email:** [jan@keuchel.dev](mailto:jan@keuchel.dev)
