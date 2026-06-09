@@ -58,7 +58,13 @@ body {
     height: auto;
     display: block;
     margin: 1rem auto;
-    filter: invert(1) hue-rotate(180deg);
+    // filter: invert(1) hue-rotate(180deg);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .svg-fill-background svg {
+      filter: invert(1) hue-rotate(180deg);
+    }
   }
 }
 
@@ -131,7 +137,7 @@ p {
   overflow-x: auto;
   font-size: 1.0rem;
   padding: 1rem;
-  background-color: color-mix(in srgb, var(--bg) 90%, white);
+  background-color: color-mix(in srgb, var(--bg) 90%, var(--shadow));
   border-radius: 4px;
 }
 
@@ -195,7 +201,7 @@ main {
 
 //  TOC
 .toc {
-  background: color-mix(in srgb, var(--bg) 95%, white);
+  background: color-mix(in srgb, var(--bg) 95%, var(--shadow));
   border-radius: 0.5rem;
   padding: 0.5rem 0;
   margin-bottom: 2rem;
