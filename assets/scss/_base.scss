@@ -58,7 +58,6 @@ body {
     height: auto;
     display: block;
     margin: 1rem auto;
-    // filter: invert(1) hue-rotate(180deg);
   }
 
   @media (prefers-color-scheme: dark) {
@@ -150,7 +149,7 @@ p {
 }
 
 code {
-  background-color: color-mix(in srgb, var(--bg) 90%, white);
+  background-color: color-mix(in srgb, var(--bg) 90%, var(--shadow));
   color: var(--accent);
   padding: 0.2rem 0.4rem;
   border-radius: 3px;

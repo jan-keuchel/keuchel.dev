@@ -27,6 +27,7 @@ markup:
     ordered: false
     startLevel: 2
   highlight:
+    noClasses: false
     style: "tokyonight-night"
 params:
   math: true
