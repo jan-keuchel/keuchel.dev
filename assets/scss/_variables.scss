@@ -1,0 +1,33 @@
+:root {
+  /* Light theme (default) */
+  --bg: #ffffff;
+  --text: #222222;
+  --accent: #ff4444;
+  --text-dim: #666666;
+  --border: #dddddd;
+  --legal-link: #4a5eff;
+  --shadow: #000000;
+
+  --note-red: #F2545B;
+  --note-green: #4DE6AC;
+  --note-blue: #64B5F6;
+  --note-orange: #FF8F33;
+}
+
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #121212;
+    --text: #e0e0e0;
+    --accent: #ff4444;
+    --text-dim: #888888;
+    --border: #333333;
+    --legal-link: #999eff;
+    --shadow: #ffffff;
+
+    --note-red: #F2545B;
+    --note-green: #4DE6AC;
+    --note-blue: #64B5F6;
+    --note-orange: #FF8F33;
+  }
+}

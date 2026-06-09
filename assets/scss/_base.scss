@@ -1,18 +1,4 @@
-// Variables (reusing from previous files)
-$bg-dark: #121212;
-$text-light: #e0e0e0;
-$accent-red: #ff4444;
-$text-dim: #888888;
-$border-dark: #333333;
-$legal-link-color: #999eff;
-
-$note-accent-red: #F2545B;
-$note-accent-green: #4DE6AC;
-$note-accent-blue: #64B5F6;
-$note-accent-orange: #FF8F33;
-
 // Base styles for the entire site
-
 *, *::before, *::after {
   box-sizing: border-box;
 }
@@ -24,8 +10,8 @@ html, body {
 }
 
 body {
-  background-color: $bg-dark;
-  color: $text-light;
+  background-color: var(--bg);
+  color: var(--text);
   font-family: system-ui, sans-serif;
   line-height: 1.6;
   font-size: 1.2rem;
@@ -43,16 +29,16 @@ body {
   flex: 1; // Allow the content to grow and push the footer down
 
   p > a,li > a {
-    color: $accent-red;
+    color: var(--accent);
     text-decoration: none;
     transition: background-color 0.1s ease;
     padding: 0.1rem 0;
     border-radius: 0.2rem;
 
     &:hover {
-      color: $accent-red;
+      color: var(--accent);
       text-decoration: none;
-      background-color: rgba($accent-red, 0.2);
+      background-color: color-mix(in srgb, var(--accent) 20%, transparent);
     }
   }
 
@@ -106,17 +92,17 @@ footer {
 
 .obligaroty-links {
   text-decoration: none;
-  color: $legal-link-color;
+  color: var(--legal-link);
   font-size: 0.75rem;
 }
 .obligaroty-links:hover {
-  color: $legal-link-color;
+  color: var(--legal-link);
   text-decoration: underline;
 }
 
 // Typography
 h1, h2, h3, h4, h5, h6 {
-  color: $text-light;
+  color: var(--text);
   font-weight: 600;
   line-height: 1.2;
   margin-top: 0;
@@ -137,7 +123,7 @@ h3 {
 
 p {
   margin: 0 0 1rem 0;
-  color: $text-light;
+  color: var(--text);
 }
 
 #pgp-key {
@@ -145,7 +131,7 @@ p {
   overflow-x: auto;
   font-size: 1.0rem;
   padding: 1rem;
-  background-color: lighten($bg-dark, 10%);
+  background-color: color-mix(in srgb, var(--bg) 90%, white);
   border-radius: 4px;
 }
 
@@ -158,8 +144,8 @@ p {
 }
 
 code {
-  background-color: lighten($bg-dark, 10%);
-  color: $accent-red;
+  background-color: color-mix(in srgb, var(--bg) 90%, white);
+  color: var(--accent);
   padding: 0.2rem 0.4rem;
   border-radius: 3px;
   font-family: 'Courier New', Courier, monospace;
@@ -184,32 +170,32 @@ main {
   padding: 0.8rem 1.0rem;
   margin: 0.75rem 0rem;
   font-size: 1rem;
-  color: $text-light
+  color: var(--text)
 }
 
 .highlight-note {
-  background: color-mix(in srgb, $bg-dark 90%, $note-accent-blue);
-  border-left: 6px solid color-mix(in srgb, $bg-dark 60%, $note-accent-blue);
+  background: color-mix(in srgb, var(--bg) 90%, var(--note-blue));
+  border-left: 6px solid color-mix(in srgb, var(--bg) 60%, var(--note-blue));
 }
 
 .highlight-warning {
-  background: color-mix(in srgb, $bg-dark 90%, $note-accent-red);
-  border-left: 6px solid color-mix(in srgb, $bg-dark 60%, $note-accent-red);
+  background: color-mix(in srgb, var(--bg) 90%, var(--note-red));
+  border-left: 6px solid color-mix(in srgb, var(--bg) 60%, var(--note-red));
 }
 
 .highlight-hint {
-  background: color-mix(in srgb, $bg-dark 90%, $note-accent-green);
-  border-left: 6px solid color-mix(in srgb, $bg-dark 60%, $note-accent-green);
+  background: color-mix(in srgb, var(--bg) 90%, var(--note-green));
+  border-left: 6px solid color-mix(in srgb, var(--bg) 60%, var(--note-green));
 }
 
 .highlight-important {
-  background: color-mix(in srgb, $bg-dark 90%, $note-accent-orange);
-  border-left: 6px solid color-mix(in srgb, $bg-dark 60%, $note-accent-orange);
+  background: color-mix(in srgb, var(--bg) 90%, var(--note-orange));
+  border-left: 6px solid color-mix(in srgb, var(--bg) 60%, var(--note-orange));
 }
 
 //  TOC
 .toc {
-  background: color-mix(in srgb, $bg-dark 95%, white);
+  background: color-mix(in srgb, var(--bg) 95%, white);
   border-radius: 0.5rem;
   padding: 0.5rem 0;
   margin-bottom: 2rem;

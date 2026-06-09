@@ -1,15 +1,8 @@
-// Variables
-$bg-dark: #121212;
-$text-light: #e0e0e0;
-$accent-red: #ff4444;
-$text-dim: #888888;
-$border-dark: #333333;
-
 // Header styles
 .site-header {
-  background-color: $bg-dark;
+  background-color: var(--bg);
   padding: 1.5rem 2rem;
-  border-bottom: 1px solid $border-dark;
+  border-bottom: 1px solid var(--border);
 
   display: flex;
   flex-direction: column;    // Stack the title and nav vertically
@@ -20,7 +13,7 @@ $border-dark: #333333;
     margin-bottom: 1rem;
     .title-text {
       margin: 0;
-      color: $text-light;
+      color: var(--text);
 
       .title-link {
         color: inherit;
@@ -28,7 +21,7 @@ $border-dark: #333333;
         transition: color 0.2s ease;
 
         &:hover {
-          color: $accent-red;
+          color: var(--accent);
         }
       }
     }
@@ -46,18 +39,18 @@ $border-dark: #333333;
 
     .nav-item {
       .nav-link {
-        color: $text-light;
+        color: var(--text);
         text-decoration: none;
         font-size: 1.1rem;
         transition: color 0.2s ease;
 
         &:hover {
-          color: $accent-red;
+          color: var(--accent);
         }
 
       }
       .is-active {
-        color: $accent-red;
+        color: var(--accent);
         font-weight: bold;
       }
     }
